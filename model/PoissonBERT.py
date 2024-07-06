@@ -1,4 +1,4 @@
-# Definizione degli input
+# Inputs
 Input_Reddit = Input((MAX_POSTS, embedding_dim))
 Input_Description = Input((embedding_dim, ))
 Repeated_Description = tf.tile(tf.expand_dims(Input_Description, axis=1), [1, MAX_POSTS, 1])
@@ -7,7 +7,7 @@ Repeated_Description = tf.tile(tf.expand_dims(Input_Description, axis=1), [1, MA
 Memento_Layers = MultiHeadAttention(num_heads=3, key_dim=embedding_dim)
 Memento_Posts, attention_weights = Memento_Layers(Input_Reddit, Input_Reddit, return_attention_scores=True)
 
-#Pooling sui post di Reddit
+#Pooling from MHA
 Pooling_Posts = tf.reduce_sum(Memento_Posts, axis=1)
 
 #Cross-Attention
