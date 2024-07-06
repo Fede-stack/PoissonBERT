@@ -39,7 +39,7 @@ for i, bdi in enumerate(bdi_items):
                 embs = np.concatenate((query_emb.reshape(1, -1), doc_embeddings))
                 print(embs.shape)
                 data = Data(embs)
-                ids, kstars = return_ids_kstar_binomial(data, embs, initial_id=None, Dthr=6.67, r='opt', n_iter=10)
+                ids, kstars = return_kstar(data, embs, initial_id=None, Dthr=6.67, r='opt', n_iter=10)
                 # nns = find_Kstar_neighs(kstars, embs)
                 nns = find_single_k_neighs(embs, 0, kstars[0])
 
