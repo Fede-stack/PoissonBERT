@@ -38,7 +38,7 @@ Merge_Layer = Pooling_Posts + Weighted_Sum
 rate = Dense(1, activation='exponential')(Merge_Layer)
 p_y = tfp.layers.DistributionLambda(tfp.distributions.Poisson, name='poisson_layer')(rate)
 
-# Definizione del modello
+#model definition
 PoissonBERT = Model(inputs=[Input_Reddit, Input_Description] + Inputs_Choices, outputs=[p_y, Softmax_Similarities])
 
 def NLL(y_true, y_hat):
@@ -53,6 +53,6 @@ def custom_entropy_loss():
     return loss
 # negloglik = lambda y, rv_y: -rv_y.log_prob(y)
 
-PoissonBERT.compile(optimizer=tf.optimizers.Adam(learning_rate=1e-3),
+PoissonBERT.compile(optimizer=tf.optimizers.Adam(learning_rate=learning_rate),
                     loss={'poisson_layer': NLL, 'soft': custom_entropy_loss()},
                     loss_weights={'poisson_layer': 1-entropy_coefficient, 'soft': entropy_coefficient})
