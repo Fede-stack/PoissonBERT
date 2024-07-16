@@ -11,7 +11,7 @@ Memento_Posts, attention_weights = Memento_Layers(Input_Reddit, Input_Reddit, re
 Pooling_Posts = tf.reduce_sum(Memento_Posts, axis=1)
 
 #Cross-Attention
-cross_attention_layer = AdditiveAttention()
+cross_attention_layer = Attention()
 cross_attention_, cross_weights = cross_attention_layer([Input_Description, Input_Reddit, Input_Reddit], return_attention_scores=True)
 cross_attention = tf.reduce_sum(cross_attention_, axis=1)
 
