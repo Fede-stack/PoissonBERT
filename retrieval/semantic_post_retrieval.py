@@ -17,7 +17,7 @@ error_indices = []
 
 for i, bdi in enumerate(bdi_items):
     print(i)
-#     query_embeddings = model.encode(bdi)
+#     query_embeddings = model.encode(bdi) #for SentenceTransformers
     inputs_query = tokenizer(bdi, padding=True, truncation=True, return_tensors="pt").to(device)
     with torch.no_grad():
         query_embeddings = model(**inputs_query, output_hidden_states=True, return_dict=True).hidden_states[-1][:, :1].squeeze(1)
@@ -30,7 +30,7 @@ for i, bdi in enumerate(bdi_items):
             doc_embeddings = model(**inputs_doc, output_hidden_states=True, return_dict=True).hidden_states[-1][:, :1].squeeze(1)
         doc_embeddings = doc_embeddings.cpu().numpy()
         #embeddings per documenti
-#         doc_embeddings = model.encode(docs)
+#         doc_embeddings = model.encode(docs) #for SentenceTransformers
 
         documents_retrieved = []
         #for each query, find similar posts
@@ -39,8 +39,7 @@ for i, bdi in enumerate(bdi_items):
                 embs = np.concatenate((query_emb.reshape(1, -1), doc_embeddings))
                 print(embs.shape)
                 data = Data(embs)
-                ids, kstars = return_kstar(data, embs, initial_id=None, Dthr=6.67, r='opt', n_iter=10)
-                # nns = find_Kstar_neighs(kstars, embs)
+                ids, kstars = return_kstar(data, embs, initial_id=None, Dthr=6.67, r='opt', n_iter=10)                
                 nns = find_single_k_neighs(embs, 0, kstars[0])
 
                 documents_retrieved.append(np.array(docs)[np.array(nns)-1].tolist())
