@@ -69,7 +69,6 @@ def find_single_k_neighs(embeddings, index, k):
     target_embedding = embeddings[index]
     all_distances = np.array([distance.cosine(target_embedding, emb) for emb in embeddings])
 
-    # Trova gli indici dei k più vicini escludendo l'osservazione stessa
     nearest_indices = np.argsort(all_distances)[1:k+1]  # +1 per saltare l'osservazione stessa
 
     return nearest_indices.tolist()
