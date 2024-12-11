@@ -2,7 +2,6 @@ from transformers import AutoModel, AutoTokenizer
 import torch
 
 warnings.filterwarnings('ignore')
-# model = SentenceTransformer(model_choice)
 
 model = AutoModel.from_pretrained(model_choice)  
 tokenizer = AutoTokenizer.from_pretrained(model_choice)
