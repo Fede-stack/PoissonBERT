@@ -51,7 +51,7 @@ def return_kstar(data, embeddings, initial_id=None, Dthr=12, r='opt', n_iter = 1
     return ids, kstars[(n_iter - 1), :]#, ids_err, log_likelihoods, ks_stats, p_values
 
 def find_Kstar_neighs(kstars, embeddings):
-  # return the nearest neighbors for each observation in the dataset
+  #return the nearest neighbors for each observation in the dataset
     nn = NearestNeighbors(metric = 'cosine', n_jobs=-1)
     nn.fit(embeddings)
 
@@ -65,7 +65,7 @@ def find_Kstar_neighs(kstars, embeddings):
 
 
 def find_single_k_neighs(embeddings, index, k):
-  # focus only on query kstars neighbors. Given an array of embeddings, it requires the index of the query and the list of kstar neighbors return by return_kstar function
+  #focus only on query kstars neighbors. Given an array of embeddings, it requires the index of the query and the list of kstar neighbors return by return_kstar function
     target_embedding = embeddings[index]
     all_distances = np.array([distance.cosine(target_embedding, emb) for emb in embeddings])
 
