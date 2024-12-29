@@ -1,5 +1,5 @@
 def return_kstar(data, embeddings, initial_id=None, Dthr=12, r='opt', n_iter = 10):
-  # return id estimate together with kstar neighbors for each observation
+  #return id estimate together with kstar neighbors for each observation
     if initial_id is None:
         data.compute_id_2NN(algorithm='base')
     else:
@@ -14,27 +14,26 @@ def return_kstar(data, embeddings, initial_id=None, Dthr=12, r='opt', n_iter = 1
     p_values = np.zeros(n_iter)
 
     for i in range(n_iter):
-      # compute kstar
+      #compute kstar
       data.compute_kstar(Dthr)
-      # print("iteration ", i)
-      # print("id ", data.intrinsic_dim)
+      
 
-      # set new ratio
+      #set new ratio
       r_eff = min(0.95,0.2032**(1./data.intrinsic_dim)) if r == 'opt' else r
-      # compute neighbourhoods shells from k_star
+      #compute neighbourhoods shells from k_star
       rk = np.array([dd[data.kstar[j]] for j, dd in enumerate(data.distances)])
       rn = rk * r_eff
       n = np.sum([dd < rn[j] for j, dd in enumerate(data.distances)], axis=1)
-      # compute id
+      #compute id
       id = np.log((n.mean() - 1) / (data.kstar.mean() - 1)) / np.log(r_eff)
-      # compute id error
+      #compute id error
       id_err = ut._compute_binomial_cramerrao(id, data.kstar-1, r_eff, data.N)
-      # compute likelihood
+      #compute likelihood
       log_lik = ut.binomial_loglik(id, data.kstar - 1, n - 1, r_eff)
-      # model validation through KS test
+      #model validation through KS test
       n_model = rng.binomial(data.kstar-1, r_eff**id, size=len(n))
       ks, pv = ks_2samp(n-1, n_model)
-      # set new id
+      #set new id
       data.set_id(id)
 
       ids[i] = id
