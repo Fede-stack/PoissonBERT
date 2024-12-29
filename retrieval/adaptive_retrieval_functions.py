@@ -1,3 +1,14 @@
+import numpy as np
+import itertools
+from scipy.stats import ks_2samp
+from sklearn.neighbors import NearestNeighbors
+rng = np.random.default_rng()
+from dadapy import Data
+from dadapy._utils import utils as ut
+import os
+from scipy.spatial import distance
+from sentence_transformers import SentenceTransformer, util
+
 def return_kstar(data, embeddings, initial_id=None, Dthr=12, r='opt', n_iter = 10):
   #return id estimate together with kstar neighbors for each observation
     if initial_id is None:
