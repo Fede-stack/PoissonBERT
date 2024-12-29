@@ -1,6 +1,4 @@
-# Anonymous PoissonBERT
-
-
+# Tailoring Adaptive-Zero-Shot Retrieval and Probabilistic Modelling for Psychometric Data
 
 The anonymous version of the PoissonBERT repository, containing the core of the work's code.
 
