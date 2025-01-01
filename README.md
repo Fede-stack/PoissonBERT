@@ -1,6 +1,6 @@
 # Tailoring Adaptive-Zero-Shot Retrieval and Probabilistic Modelling for Psychometric Data
 
-This repository contains the code related to the work ``Tailoring Adaptive-Zero-Shot Retrieval and Probabilistic Modelling for Psychometric Data'', accepted as *poster* at *Symposium of Applied Computing (SAC'25)*.
+This repository contains the code related to the work "Tailoring Adaptive-Zero-Shot Retrieval and Probabilistic Modelling for Psychometric Data", accepted as *poster* at *Symposium of Applied Computing (SAC'25)*.
 
 The workflow pipeline is divided into two main components. The first is a retrieval component that identifies the most relevant Reddit posts from each user to answer a psychological questionnaire. The second is a predictive model called PoissonBERT that accurately predicts questionnaire scores.
 
